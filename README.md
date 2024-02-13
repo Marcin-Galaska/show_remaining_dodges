@@ -36,7 +36,7 @@ You can configure the widget's color, position and fade in/out speed on the scre
 ### License
 BSD 2-Clause License
 
-Copyright (c) 2023, Marcin Gałąska <br>
+Copyright (c) 2024, Marcin Gałąska <br>
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
