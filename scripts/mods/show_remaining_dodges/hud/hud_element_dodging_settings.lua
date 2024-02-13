@@ -1,4 +1,4 @@
--- Show Remaining Dodges mod by mroużon. Ver. 1.0.0
+-- Show Remaining Dodges mod by mroużon. Ver. 1.0.1
 -- Thanks to Zombine, Redbeardt and others for their input into the community. Their work helped me a lot in the process of creating this mod.
 
 local hud_element_dodging_settings = {

@@ -1,4 +1,4 @@
--- Show Remaining Dodges mod by mroużon. Ver. 1.0.0
+-- Show Remaining Dodges mod by mroużon. Ver. 1.0.1
 -- Thanks to Zombine, Redbeardt and others for their input into the community. Their work helped me a lot in the process of creating this mod.
 
 local mod = get_mod("show_remaining_dodges")
@@ -6,24 +6,6 @@ local mod = get_mod("show_remaining_dodges")
 -- ##################################################
 -- Mod variables
 -- ##################################################
-
-local hud_element_script = "show_remaining_dodges/scripts/mods/show_remaining_dodges/hud/hud_element_dodging"
-local hud_element_class = "HudElementDodging"
-
-local dodges_hud_element = {
-    filename = hud_element_script,
-    class_name = hud_element_class,
-    visibility_groups = {
-        "alive",
-        "tactical_overlay",
-        "in_view"
-    }
-}
-
-mod.get_hud_element = function()
-    local hud = Managers.ui:get_hud()
-    return hud and hud:element(dodges_hud_element.class_name)
-end
 
 mod._dodging = false                                            -- Whether the player is between entering and exiting the dodge state
 mod._waiting_for_dodge_effectiveness_reset = false              -- Whether the player is between finishing a dodge and resetting mod._effective_dodges_left
@@ -50,6 +32,19 @@ mod._remaining_dodges_widget_text_appearance = {
     mod:get("remaining_dodges_widget_text_B")
 }
 
+local hud_element_script = "show_remaining_dodges/scripts/mods/show_remaining_dodges/hud/hud_element_dodging"
+local hud_element_class = "HudElementDodging"
+
+local dodges_hud_element = {
+    filename = hud_element_script,
+    class_name = hud_element_class,
+    visibility_groups = {
+        "alive",
+        "tactical_overlay",
+        "in_view"
+    }
+}
+
 -- ##################################################
 -- Initalization
 -- ##################################################
@@ -58,6 +53,11 @@ local init = function(func, ...)
     if func then
         func(...)
     end
+end
+
+mod.get_hud_element = function()
+    local hud = Managers.ui:get_hud()
+    return hud and hud:element(dodges_hud_element.class_name)
 end
 
 mod.on_setting_changed = function(id)

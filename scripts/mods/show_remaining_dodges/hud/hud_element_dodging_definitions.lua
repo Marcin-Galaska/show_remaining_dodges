@@ -1,4 +1,4 @@
--- Show Remaining Dodges mod by mroużon. Ver. 1.0.0
+-- Show Remaining Dodges mod by mroużon. Ver. 1.0.1
 -- Thanks to Zombine, Redbeardt and others for their input into the community. Their work helped me a lot in the process of creating this mod.
 
 local mod = get_mod("show_remaining_dodges")
@@ -104,7 +104,11 @@ local dodge = UIWidget.create_definition({
 		style_id = "full",
 		pass_type = "rect",
 		style = {
-			offset = {0, 0, 3},
+			offset = {
+				0 + mod._remaining_dodges_widget_horizontal_offset,
+				0 + mod._remaining_dodges_widget_vertical_offset,
+				3
+			},
 			color = mod._remaining_dodges_widget_bar_appearance
 		}
 	}

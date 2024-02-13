@@ -1,4 +1,4 @@
--- Show Remaining Dodges mod by mroużon. Ver. 1.0.0
+-- Show Remaining Dodges mod by mroużon. Ver. 1.0.1
 -- Thanks to Zombine, Redbeardt and others for their input into the community. Their work helped me a lot in the process of creating this mod.
 
 local mod = get_mod("show_remaining_dodges")
@@ -159,7 +159,7 @@ HudElementDodging._draw_dodges = function (self, dt, t, ui_renderer)
 		widget_color[2] = active_color[2]
 		widget_color[3] = active_color[3]
 		widget_color[4] = active_color[4]
-		widget_offset[1] = x_offset + mod._remaining_dodges_widget_vertical_offset
+		widget_offset[1] = x_offset
 
 		UIWidget.draw(widget, ui_renderer)
 
@@ -184,6 +184,12 @@ HudElementDodging.set_offset = function(self, vertical, horizontal)
 		0 + horizontal,
 		0 + vertical,
 		1
+	}
+
+	self._widgets_by_name.dodge.style.full.offset = {
+		0 + horizontal,
+		0 + vertical,
+		3
 	}
 end
 
