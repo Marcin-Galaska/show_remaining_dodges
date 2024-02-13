@@ -20,6 +20,11 @@ local dodges_hud_element = {
     }
 }
 
+mod.get_hud_element = function()
+    local hud = Managers.ui:get_hud()
+    return hud and hud:element(dodges_hud_element.class_name)
+end
+
 mod._dodging = false                                            -- Whether the player is between entering and exiting the dodge state
 mod._waiting_for_dodge_effectiveness_reset = false              -- Whether the player is between finishing a dodge and resetting mod._effective_dodges_left
 mod._draw_widget = false                                        -- Whether the widget should be visible
@@ -58,26 +63,77 @@ end
 mod.on_setting_changed = function(id)
     if id == "remaining_dodges_widget_horizontal_offset" then
         mod._remaining_dodges_widget_horizontal_offset = mod:get(id)
+
+        local dodges_element = mod.get_hud_element()
+        if dodges_element then
+            dodges_element:set_offset(mod._remaining_dodges_widget_vertical_offset, mod._remaining_dodges_widget_horizontal_offset)
+        end
     elseif id == "remaining_dodges_widget_vertical_offset" then
-        mod._remaining_dodges_widget_vertical_offset = mod:get(id)
-    elseif id == "remaining_dodges_widget_R" then
-        mod._remaining_dodges_widget_appearance = {
+        mod._remaining_dodges_widget_vertical_offset = -1 * mod:get(id)
+
+        local dodges_element = mod.get_hud_element()
+        if dodges_element then
+            dodges_element:set_offset(mod._remaining_dodges_widget_vertical_offset, mod._remaining_dodges_widget_horizontal_offset)
+        end
+    elseif id == "remaining_dodges_widget_bar_R" then
+        mod._remaining_dodges_widget_bar_appearance = {
+            255,
             mod:get(id),
-            mod:get("remaining_dodges_widget_G"),
-            mod:get("remaining_dodges_widget_B")
+            mod:get("remaining_dodges_widget_bar_G"),
+            mod:get("remaining_dodges_widget_bar_B")
         }
-    elseif id == "remaining_dodges_widget_G" then
-        mod._remaining_dodges_widget_appearance = {
-            mod:get("remaining_dodges_widget_R"),
+    elseif id == "remaining_dodges_widget_bar_G" then
+        mod._remaining_dodges_widget_bar_appearance = {
+            255,
+            mod:get("remaining_dodges_widget_bar_R"),
             mod:get(id),
-            mod:get("remaining_dodges_widget_B")
+            mod:get("remaining_dodges_widget_bar_B")
         }
-    elseif id == "remaining_dodges_widget_B" then
-        mod._remaining_dodges_widget_appearance = {
-            mod:get("remaining_dodges_widget_R"),
-            mod:get("remaining_dodges_widget_G"),
+    elseif id == "remaining_dodges_widget_bar_B" then
+        mod._remaining_dodges_widget_bar_appearance = {
+            255,
+            mod:get("remaining_dodges_widget_bar_R"),
+            mod:get("remaining_dodges_widget_bar_G"),
             mod:get(id)
         }
+    elseif id == "remaining_dodges_widget_text_R" then
+        mod._remaining_dodges_widget_text_appearance = {
+            255,
+            mod:get(id),
+            mod:get("remaining_dodges_widget_text_G"),
+            mod:get("remaining_dodges_widget_text_B")
+        }
+
+        local dodges_element = mod.get_hud_element()
+        if dodges_element then
+            dodges_element:set_text_appearance(mod._remaining_dodges_widget_text_appearance)
+        end
+    elseif id == "remaining_dodges_widget_text_G" then
+        mod._remaining_dodges_widget_text_appearance = {
+            255,
+            mod:get("remaining_dodges_widget_text_R"),
+            mod:get(id),
+            mod:get("remaining_dodges_widget_text_B")
+        }
+
+        local dodges_element = mod.get_hud_element()
+        if dodges_element then
+            dodges_element:set_text_appearance(mod._remaining_dodges_widget_text_appearance)
+        end
+    elseif id == "remaining_dodges_widget_text_B" then
+        mod._remaining_dodges_widget_text_appearance = {
+            255,
+            mod:get("remaining_dodges_widget_text_R"),
+            mod:get("remaining_dodges_widget_text_G"),
+            mod:get(id)
+        }
+
+        local dodges_element = mod.get_hud_element()
+        if dodges_element then
+            dodges_element:set_text_appearance(mod._remaining_dodges_widget_text_appearance)
+        end
+    elseif id == "remaining_dodges_widget_fade_inout_speed" then
+        mod._remaining_dodges_widget_fade_inout_speed = mod:get("remaining_dodges_widget_fade_inout_speed")
     end
 end
 

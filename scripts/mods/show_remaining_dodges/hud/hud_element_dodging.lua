@@ -159,12 +159,38 @@ HudElementDodging._draw_dodges = function (self, dt, t, ui_renderer)
 		widget_color[2] = active_color[2]
 		widget_color[3] = active_color[3]
 		widget_color[4] = active_color[4]
-		widget_offset[1] = x_offset
+		widget_offset[1] = x_offset + mod._remaining_dodges_widget_vertical_offset
 
 		UIWidget.draw(widget, ui_renderer)
 
 		x_offset = x_offset - dodge_width - spacing
 	end
+end
+
+HudElementDodging.set_offset = function(self, vertical, horizontal)
+	self._widgets_by_name.gauge.style.value_text.offset = {
+		0 + horizontal,
+		10 + vertical,
+		3
+	}
+
+	self._widgets_by_name.gauge.style.name_text.offset = {
+		0 + horizontal,
+		10 + vertical,
+		3
+	}
+
+	self._widgets_by_name.gauge.style.warning.offset = {
+		0 + horizontal,
+		0 + vertical,
+		1
+	}
+end
+
+HudElementDodging.set_text_appearance = function(self, appearance)
+	self._widgets_by_name.gauge.style.value_text.text_color = appearance
+	self._widgets_by_name.gauge.style.name_text.text_color = appearance
+	self._widgets_by_name.gauge.style.warning.color = appearance
 end
 
 return HudElementDodging

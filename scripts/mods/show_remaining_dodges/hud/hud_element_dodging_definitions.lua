@@ -22,11 +22,7 @@ local scenegraph_definition = {
 		parent = "screen",
 		horizontal_alignment = "center",
 		size = area_size,
-		position = {
-			0 + mod._remaining_dodges_widget_horizontal_offset,
-			center_offset + mod._remaining_dodges_widget_vertical_offset,
-			0
-		}
+		position = {0, center_offset, 0}
 	},
 	gauge = {
 		vertical_alignment = "top",
@@ -45,7 +41,11 @@ local scenegraph_definition = {
 }
 
 local value_text_style = table.clone(UIFontSettings.body_small)
-value_text_style.offset = {0, 10, 3}
+value_text_style.offset = {
+	0 + mod._remaining_dodges_widget_horizontal_offset,
+	10 + mod._remaining_dodges_widget_vertical_offset,
+	3
+}
 value_text_style.size = {500, 30}
 value_text_style.vertical_alignment = "top"
 value_text_style.horizontal_alignment = "left"
@@ -54,7 +54,11 @@ value_text_style.text_vertical_alignment = "top"
 value_text_style.text_color = mod._remaining_dodges_widget_text_appearance
 
 local name_text_style = table.clone(value_text_style)
-name_text_style.offset = {0, 10, 3}
+name_text_style.offset = {
+	0 + mod._remaining_dodges_widget_horizontal_offset,
+	10 + mod._remaining_dodges_widget_vertical_offset,
+	3
+}
 name_text_style.horizontal_alignment = "right"
 name_text_style.text_horizontal_alignment = "right"
 name_text_style.text_color = mod._remaining_dodges_widget_text_appearance
@@ -83,7 +87,11 @@ local widget_definitions = {
 			style = {
 				vertical_alignment = "center",
 				horizontal_alignment = "center",
-				offset = {0, 0, 1},
+				offset = {
+					0 + mod._remaining_dodges_widget_horizontal_offset,
+					0 + mod._remaining_dodges_widget_vertical_offset,
+					1
+				},
 				color = mod._remaining_dodges_widget_text_appearance
 			}
 		}
@@ -97,7 +105,7 @@ local dodge = UIWidget.create_definition({
 		pass_type = "rect",
 		style = {
 			offset = {0, 0, 3},
-			color = UIHudSettings.color_tint_main_1
+			color = mod._remaining_dodges_widget_bar_appearance
 		}
 	}
 }, "dodge")
