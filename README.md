@@ -23,11 +23,11 @@ This highly customizable mod adds an effective dodge counter widget to your HUD.
 ### Usage
 Upon installing this mod, you are ready to go. This mod shows you your effective dodge count in combat, accordingly to the preferences you set inside DMF's mod settings:
 
-![2024-02-1314-30-04_1-ezgif com-video-to-gif-converter](https://github.com/Marcin-Galaska/show_remaining_dodges/assets/106023363/3ee46a57-e1dd-4c90-bb88-8b0fbce4c578)
+![settings](https://github.com/Marcin-Galaska/show_remaining_dodges/assets/106023363/3c6699f1-f24e-413a-8614-4e0c8b3f9ed5)
 
-By default, the widget is located slightly below your crosshair:
+By default, the widget is located below the stamina widget:
 
-![2024-02-1314-30-04-ezgif com-video-to-gif-converter](https://github.com/Marcin-Galaska/show_remaining_dodges/assets/106023363/712a5c5d-c76e-4523-aad4-f5ce00c3acb4)
+![combat](https://github.com/Marcin-Galaska/show_remaining_dodges/assets/106023363/e330f42e-4a93-4338-818c-49b5ba3d01ef)
 
 You can configure the widget's color, position and fade in/out speed on the screen to your liking.
 
