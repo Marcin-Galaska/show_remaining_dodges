@@ -85,7 +85,7 @@ return {
 						tooltip = "remaining_dodges_widget_vertical_offset_desc",
 						type = "numeric",
 						default_value = 0,
-						range = {-350, 650}
+						range = {-250, 750}
 					},
 					{
 						setting_id = "remaining_dodges_widget_horizontal_offset",

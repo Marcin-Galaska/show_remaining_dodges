@@ -3,7 +3,7 @@
 
 local hud_element_dodging_settings = {
 	max_glow_alpha = 130,
-	center_offset = 160,
+	center_offset = 260,
 	spacing = 4,
 	half_distance = 1,
 	bar_size = {200, 9},
