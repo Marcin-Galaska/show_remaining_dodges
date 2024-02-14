@@ -14,6 +14,7 @@ mod._effective_dodges = 0                                       -- Max number of
 mod._effective_dodges_left = 0                                  -- Number of dodges with given weapon left before they get ineffective (can get negative)
 mod._consecutive_dodges_cooldown = 0.0                          -- In-game time at which mod._effective_dodges_left will reset back to mod._effective_dodges
 mod._unified_t = 0.0                                            -- In-game time unified between show_remaining_dodges.lua and hud_element_dodging.lua
+mod._last_dodge_enter_t = 0.0                                   -- In-game time of last PlayerCharacterStateDodging.on_enter call
 mod._unit = nil                                                 -- Player unit
 
 mod._remaining_dodges_widget_fade_inout_speed = mod:get("remaining_dodges_widget_fade_inout_speed")
@@ -163,6 +164,13 @@ end)
 
 -- Set dodge start flags, calculate effective dodges left
 mod:hook_safe("PlayerCharacterStateDodging", "on_enter", function(self, unit, dt, t, previous_state, params)
+    -- Band aid for a bug of the game itself
+    -- Player *can* enter dodging state mulitple times in a singular dodge, especially when colliding with other actors
+    if t - mod._last_dodge_enter_t < 0.25 then
+        return
+    end
+    mod._last_dodge_enter_t = t
+
     local weapon_system = ScriptUnit.has_extension(unit, "weapon_system")
     if not weapon_system then
         return
