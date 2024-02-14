@@ -147,13 +147,14 @@ end
 
 -- Update variables when swapping weapons
 mod:hook_safe("PlayerUnitWeaponExtension", "on_slot_wielded", function(self, slot_name, t, skip_wield_action)
-    if not mod._unit then
+    local weapon_system = ScriptUnit.has_extension(mod._unit, "weapon_system")
+    if not weapon_system or not mod._unit then
         return
     end
 
+    local weapon_dodge_template = weapon_system:dodge_template()
     local old_effective_dodges = mod._effective_dodges
 
-    local weapon_dodge_template = ScriptUnit.has_extension(mod._unit, "weapon_system"):dodge_template()
     mod._effective_dodges = math.ceil((weapon_dodge_template and weapon_dodge_template.diminishing_return_start or 2) + math.round(self._buff_extension:stat_buffs().extra_consecutive_dodges or 0))
 
     local effective_dodges_difference = mod._effective_dodges - old_effective_dodges
@@ -162,11 +163,17 @@ end)
 
 -- Set dodge start flags, calculate effective dodges left
 mod:hook_safe("PlayerCharacterStateDodging", "on_enter", function(self, unit, dt, t, previous_state, params)
+    local weapon_system = ScriptUnit.has_extension(unit, "weapon_system")
+    if not weapon_system then
+        return
+    end
+
+    local weapon_dodge_template = weapon_system:dodge_template()
+
     mod._dodging = true
     mod._draw_widget = true
     mod._unit = unit
 
-    local weapon_dodge_template = ScriptUnit.has_extension(unit, "weapon_system"):dodge_template()
     mod._effective_dodges = math.ceil((weapon_dodge_template and weapon_dodge_template.diminishing_return_start or 2) + math.round(self._buff_extension:stat_buffs().extra_consecutive_dodges or 0))
 
     if not mod._waiting_for_dodge_effectiveness_reset then
