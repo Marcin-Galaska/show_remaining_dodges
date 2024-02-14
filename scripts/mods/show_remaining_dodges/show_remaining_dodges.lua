@@ -41,8 +41,7 @@ local dodges_hud_element = {
     class_name = hud_element_class,
     visibility_groups = {
         "alive",
-        "tactical_overlay",
-        "in_view"
+        "communication_wheel"
     }
 }
 
