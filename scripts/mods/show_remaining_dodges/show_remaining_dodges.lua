@@ -1,4 +1,4 @@
--- Show Remaining Dodges mod by mroużon. Ver. 1.0.3
+-- Show Remaining Dodges mod by mroużon. Ver. 1.0.4
 -- Thanks to Zombine, Redbeardt and others for their input into the community. Their work helped me a lot in the process of creating this mod.
 
 local mod = get_mod("show_remaining_dodges")
@@ -172,22 +172,48 @@ mod.player_unit_destroyed = function(self, player_unit)
 end
 
 -- ##################################################
+-- Custom functions
+-- ##################################################
+
+local _on_exit = function(self)
+    mod._dodging = false
+    mod._waiting_for_dodge_effectiveness_reset = true
+
+    -- Calculate consecutive dodge cooldown
+	local weapon_dodge_template = self._weapon_extension:dodge_template()
+	local base_dodge_template = self._archetype_dodge_template
+	local weapon_consecutive_dodges_reset = weapon_dodge_template and weapon_dodge_template.consecutive_dodges_reset or 0
+	local stat_buffs = self._buff_extension:stat_buffs()
+	local buff_modifier = stat_buffs.dodge_cooldown_reset_modifier
+	local buff_dodge_cooldown_reset_modifier = buff_modifier and 1 - (buff_modifier - 1) or 1
+	local cooldown = (base_dodge_template.consecutive_dodges_reset + weapon_consecutive_dodges_reset) * buff_dodge_cooldown_reset_modifier
+
+    mod._consecutive_dodges_cooldown = mod._unified_t + cooldown
+end
+
+-- ##################################################
 -- Hooks
 -- ##################################################
 
 -- Update variables when swapping weapons
 mod:hook_safe("PlayerUnitWeaponExtension", "on_slot_wielded", function(self, slot_name, t, skip_wield_action)
+    if not mod._unit then
+        return
+    end
+
+    local old_effective_dodges = mod._effective_dodges
+
     local weapon_system = ScriptUnit.has_extension(mod._unit, "weapon_system")
-    if not weapon_system or not mod._unit then
+    if not weapon_system then
         return
     end
 
     local weapon_dodge_template = weapon_system:dodge_template()
-    local old_effective_dodges = mod._effective_dodges
 
     mod._effective_dodges = math.ceil((weapon_dodge_template and weapon_dodge_template.diminishing_return_start or 2) + math.round(self._buff_extension:stat_buffs().extra_consecutive_dodges or 0))
 
     local effective_dodges_difference = mod._effective_dodges - old_effective_dodges
+
     mod._effective_dodges_left = mod._effective_dodges_left + effective_dodges_difference
 end)
 
@@ -200,16 +226,16 @@ mod:hook_safe("PlayerCharacterStateDodging", "on_enter", function(self, unit, dt
     end
     mod._last_dodge_enter_t = t
 
+    mod._dodging = true
+    mod._draw_widget = true
+    mod._unit = unit
+
     local weapon_system = ScriptUnit.has_extension(unit, "weapon_system")
     if not weapon_system then
         return
     end
 
     local weapon_dodge_template = weapon_system:dodge_template()
-
-    mod._dodging = true
-    mod._draw_widget = true
-    mod._unit = unit
 
     mod._effective_dodges = math.ceil((weapon_dodge_template and weapon_dodge_template.diminishing_return_start or 2) + math.round(self._buff_extension:stat_buffs().extra_consecutive_dodges or 0))
 
@@ -220,20 +246,37 @@ mod:hook_safe("PlayerCharacterStateDodging", "on_enter", function(self, unit, dt
     mod._effective_dodges_left = mod._effective_dodges_left - 1
 end)
 
+-- Account for slide-dodging and sprint-slides pausing the dodge cooldown
+mod:hook_safe("PlayerCharacterStateSliding", "on_enter", function(self, unit, dt, t, previous_state, params)
+    if t - mod._last_dodge_enter_t < 0.05 then
+        return
+    end
+    mod._last_dodge_enter_t = t
+
+    mod._dodging = true
+    mod._unit = unit
+
+    local weapon_system = ScriptUnit.has_extension(unit, "weapon_system")
+    if not weapon_system then
+        return
+    end
+
+    local weapon_dodge_template = weapon_system:dodge_template()
+
+    mod._effective_dodges = math.ceil((weapon_dodge_template and weapon_dodge_template.diminishing_return_start or 2) + math.round(self._buff_extension:stat_buffs().extra_consecutive_dodges or 0))
+
+    if mod._waiting_for_dodge_effectiveness_reset and previous_state == "dodging" then
+        mod._effective_dodges_left = mod._effective_dodges_left - 1
+    end
+end)
+
 -- Set dodge end flags, calculate consecutive dodge cooldown
 mod:hook_safe("PlayerCharacterStateDodging", "on_exit", function(self, unit, t, next_state)
-    mod._dodging = false
-    mod._waiting_for_dodge_effectiveness_reset = true
+    _on_exit(self)
+end)
 
-	local weapon_dodge_template = self._weapon_extension:dodge_template()
-	local base_dodge_template = self._archetype_dodge_template
-	local weapon_consecutive_dodges_reset = weapon_dodge_template and weapon_dodge_template.consecutive_dodges_reset or 0
-	local stat_buffs = self._buff_extension:stat_buffs()
-	local buff_modifier = stat_buffs.dodge_cooldown_reset_modifier
-	local buff_dodge_cooldown_reset_modifier = buff_modifier and 1 - (buff_modifier - 1) or 1
-	local cooldown = (base_dodge_template.consecutive_dodges_reset + weapon_consecutive_dodges_reset) * buff_dodge_cooldown_reset_modifier
-
-    mod._consecutive_dodges_cooldown = mod._unified_t + cooldown
+mod:hook_safe("PlayerCharacterStateSliding", "on_exit", function(self, unit, t, next_state)
+    _on_exit(self)
 end)
 
 -- Reset last dodge enter state time on new game session
