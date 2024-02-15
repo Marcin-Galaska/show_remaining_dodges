@@ -11,7 +11,7 @@ mod._dodging = false                                            -- Whether the p
 mod._waiting_for_dodge_effectiveness_reset = false              -- Whether the player is between finishing a dodge and resetting mod._effective_dodges_left
 mod._draw_widget = false                                        -- Whether the widget should be visible
 mod._effective_dodges = 0                                       -- Max number of effective dodges with drawn weapon
-mod._effective_dodges_left = 0                                  -- Number of dodges with given weapon left before they get ineffective (can get negative)
+mod._effective_dodges_left = nil                                -- Number of dodges with given weapon left before they get ineffective (can get negative)
 mod._consecutive_dodges_cooldown = 0.0                          -- In-game time at which mod._effective_dodges_left will reset back to mod._effective_dodges
 mod._unified_t = 0.0                                            -- In-game time unified between show_remaining_dodges.lua and hud_element_dodging.lua
 mod._last_dodge_enter_t = 0.0                                   -- In-game time of last PlayerCharacterStateDodging.on_enter call
@@ -267,6 +267,11 @@ mod:hook_safe("PlayerCharacterStateSliding", "on_enter", function(self, unit, dt
 
     if mod._waiting_for_dodge_effectiveness_reset and previous_state == "dodging" then
         mod._effective_dodges_left = mod._effective_dodges_left - 1
+    end
+
+    -- Purely in case mods are reloaded during gameplay and player dodges after sliding.
+    if not mod._effective_dodges_left then
+        mod._effective_dodges_left = mod._effective_dodges
     end
 end)
 
