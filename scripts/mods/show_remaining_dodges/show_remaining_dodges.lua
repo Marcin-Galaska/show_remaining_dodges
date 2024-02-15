@@ -1,4 +1,4 @@
--- Show Remaining Dodges mod by mroużon. Ver. 1.0.1
+-- Show Remaining Dodges mod by mroużon. Ver. 1.0.3
 -- Thanks to Zombine, Redbeardt and others for their input into the community. Their work helped me a lot in the process of creating this mod.
 
 local mod = get_mod("show_remaining_dodges")
@@ -53,6 +53,22 @@ local init = function(func, ...)
     if func then
         func(...)
     end
+end
+
+mod.recreate_hud = function(self)
+	local ui_manager = Managers.ui
+	if ui_manager then
+		local hud = ui_manager._hud
+		if hud then
+			local player = Managers.player:local_player(1)
+			local peer_id = player:peer_id()
+			local local_player_id = player:local_player_id()
+			local elements = hud._element_definitions
+			local visibility_groups = hud._visibility_groups
+			hud:destroy()
+			ui_manager:create_player_hud(peer_id, local_player_id, elements, visibility_groups)
+		end
+	end
 end
 
 mod.get_hud_element = function()
@@ -139,6 +155,20 @@ end
 
 mod.on_all_mods_loaded = function()
     init()
+    mod:recreate_hud()
+end
+
+mod.player_unit_loaded = function(self)
+	self:init()
+    mod:recreate_hud()
+end
+
+mod.player_unit_destroyed = function(self, player_unit)
+	if player_unit == mod.player_unit then
+        mod._last_dodge_enter_t = 0.0
+		mod._draw_widget = false
+        mod.initialized = false
+	end
 end
 
 -- ##################################################
@@ -164,8 +194,8 @@ end)
 -- Set dodge start flags, calculate effective dodges left
 mod:hook_safe("PlayerCharacterStateDodging", "on_enter", function(self, unit, dt, t, previous_state, params)
     -- Band aid for a bug of the game itself
-    -- Player *can* enter dodging state mulitple times in a singular dodge, especially when colliding with other actors
-    if t - mod._last_dodge_enter_t < 0.25 then
+    -- Player *can* enter dodging state mulitple times in a single frame
+    if t - mod._last_dodge_enter_t < 0.05 then
         return
     end
     mod._last_dodge_enter_t = t
@@ -206,9 +236,13 @@ mod:hook_safe("PlayerCharacterStateDodging", "on_exit", function(self, unit, t, 
     mod._consecutive_dodges_cooldown = mod._unified_t + cooldown
 end)
 
+-- Reset last dodge enter state time on new game session
+mod:hook_safe("HumanGameplay", "init", function(self, player, game_state_context)
+    mod._last_dodge_enter_t = 0.0
+end)
+
 -- Add hud element to hud
 mod:add_require_path(hud_element_script)
-
 mod:hook(CLASS.UIHud, "init", function(func, self, elements, visibility_groups, params, ...)
 	if not table.find_by_key(elements, "class_name", hud_element_class) then
 		table.insert(elements, dodges_hud_element)

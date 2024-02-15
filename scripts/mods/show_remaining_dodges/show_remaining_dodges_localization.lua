@@ -1,4 +1,4 @@
--- Show Remaining Dodges mod by mroużon. Ver. 1.0.1
+-- Show Remaining Dodges mod by mroużon. Ver. 1.0.3
 -- Thanks to Zombine, Redbeardt and others for their input into the community. Their work helped me a lot in the process of creating this mod.
 
 return {
@@ -6,7 +6,7 @@ return {
 		en = "Show Remaining Dodges",
 	},
 	mod_description = {
-		en = "Adds an in-game widget showing number of dodges remaining before dodging becomes ineffective.\n\nAuthor: mroużon",
+		en = "Adds an in-game, stamina-like widget showing number of dodges remaining before dodging becomes ineffective.\n\nAuthor: mroużon",
 	},
 	remaining_dodges_widget_settings_behaviour = {
 		en = "Widget Behaviour"
