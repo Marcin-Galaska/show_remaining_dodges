@@ -1,4 +1,4 @@
--- Show Remaining Dodges mod by mroużon. Ver. 1.0.4
+-- Show Remaining Dodges mod by mroużon. Ver. 1.0.6
 -- Thanks to Zombine, Redbeardt and others for their input into the community. Their work helped me a lot in the process of creating this mod.
 
 local mod = get_mod("show_remaining_dodges")
@@ -53,6 +53,18 @@ local init = function(func, ...)
     if func then
         func(...)
     end
+end
+
+mod.reset_logic_variables = function()
+    mod._dodging = false
+    mod._waiting_for_dodge_effectiveness_reset = false
+    mod._draw_widget = false
+    mod._effective_dodges = 0
+    mod._effective_dodges_left = nil
+    mod._consecutive_dodges_cooldown = 0.0
+    mod._unified_t = 0.0
+    mod._last_dodge_enter_t = 0.0
+    mod._unit = nil
 end
 
 mod.recreate_hud = function(self)
@@ -165,8 +177,7 @@ end
 
 mod.player_unit_destroyed = function(self, player_unit)
 	if player_unit == mod.player_unit then
-        mod._last_dodge_enter_t = 0.0
-		mod._draw_widget = false
+        mod.reset_logic_variables()
         mod.initialized = false
 	end
 end
@@ -174,6 +185,15 @@ end
 -- ##################################################
 -- Custom functions
 -- ##################################################
+
+local _get_weapon_dodge_template = function(unit)
+    local weapon_system = ScriptUnit.has_extension(unit, "weapon_system")
+    if not weapon_system then
+        return
+    end
+
+    return weapon_system:dodge_template()
+end
 
 local _on_exit = function(self)
     mod._dodging = false
@@ -203,12 +223,7 @@ mod:hook_safe("PlayerUnitWeaponExtension", "on_slot_wielded", function(self, slo
 
     local old_effective_dodges = mod._effective_dodges
 
-    local weapon_system = ScriptUnit.has_extension(mod._unit, "weapon_system")
-    if not weapon_system then
-        return
-    end
-
-    local weapon_dodge_template = weapon_system:dodge_template()
+    local weapon_dodge_template = _get_weapon_dodge_template(mod._unit)
 
     mod._effective_dodges = math.ceil((weapon_dodge_template and weapon_dodge_template.diminishing_return_start or 2) + math.round(self._buff_extension:stat_buffs().extra_consecutive_dodges or 0))
 
@@ -230,12 +245,7 @@ mod:hook_safe("PlayerCharacterStateDodging", "on_enter", function(self, unit, dt
     mod._draw_widget = true
     mod._unit = unit
 
-    local weapon_system = ScriptUnit.has_extension(unit, "weapon_system")
-    if not weapon_system then
-        return
-    end
-
-    local weapon_dodge_template = weapon_system:dodge_template()
+    local weapon_dodge_template = _get_weapon_dodge_template(unit)
 
     mod._effective_dodges = math.ceil((weapon_dodge_template and weapon_dodge_template.diminishing_return_start or 2) + math.round(self._buff_extension:stat_buffs().extra_consecutive_dodges or 0))
 
@@ -256,12 +266,7 @@ mod:hook_safe("PlayerCharacterStateSliding", "on_enter", function(self, unit, dt
     mod._dodging = true
     mod._unit = unit
 
-    local weapon_system = ScriptUnit.has_extension(unit, "weapon_system")
-    if not weapon_system then
-        return
-    end
-
-    local weapon_dodge_template = weapon_system:dodge_template()
+    local weapon_dodge_template = _get_weapon_dodge_template(unit)
 
     mod._effective_dodges = math.ceil((weapon_dodge_template and weapon_dodge_template.diminishing_return_start or 2) + math.round(self._buff_extension:stat_buffs().extra_consecutive_dodges or 0))
 
@@ -284,11 +289,6 @@ mod:hook_safe("PlayerCharacterStateSliding", "on_exit", function(self, unit, t, 
     _on_exit(self)
 end)
 
--- Reset last dodge enter state time on new game session
-mod:hook_safe("HumanGameplay", "init", function(self, player, game_state_context)
-    mod._last_dodge_enter_t = 0.0
-end)
-
 -- Add hud element to hud
 mod:add_require_path(hud_element_script)
 mod:hook(CLASS.UIHud, "init", function(func, self, elements, visibility_groups, params, ...)
@@ -297,5 +297,10 @@ mod:hook(CLASS.UIHud, "init", function(func, self, elements, visibility_groups, 
 	end
 
 	return func(self, elements, visibility_groups, params, ...)
+end)
+
+-- Reset on game session end
+mod:hook_safe("StateGameplay", "on_exit", function(self, on_shutdown)
+    mod.reset_logic_variables()
 end)
 

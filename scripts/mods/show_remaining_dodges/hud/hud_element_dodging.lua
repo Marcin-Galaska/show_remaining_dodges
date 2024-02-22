@@ -1,4 +1,4 @@
--- Show Remaining Dodges mod by mroużon. Ver. 1.0.4
+-- Show Remaining Dodges mod by mroużon. Ver. 1.0.6
 -- Thanks to Zombine, Redbeardt and others for their input into the community. Their work helped me a lot in the process of creating this mod.
 
 local mod = get_mod("show_remaining_dodges")
@@ -10,6 +10,8 @@ local UIWidget = mod:original_require("scripts/managers/ui/ui_widget")
 local UIHudSettings = mod:original_require("scripts/settings/ui/ui_hud_settings")
 
 local HudElementDodging = class("HudElementDodging", "HudElementBase")
+
+local temp = false
 
 HudElementDodging.on_resolution_modified = function (self)
 	HudElementDodging.super.on_resolution_modified(self)
@@ -76,7 +78,8 @@ HudElementDodging._update_dodge_amount = function (self)
 end
 
 HudElementDodging._update_visibility = function (self, dt)
-	local draw = mod._draw_widget
+	local draw = mod._draw_widget and mod._effective_dodges and mod._effective_dodges > 0
+
 	local alpha_speed = mod._remaining_dodges_widget_fade_inout_speed
 	local alpha_multiplier = self._alpha_multiplier or 0
 
