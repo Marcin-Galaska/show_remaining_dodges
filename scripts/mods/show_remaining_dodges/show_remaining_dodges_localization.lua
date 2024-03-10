@@ -1,7 +1,8 @@
--- Show Remaining Dodges mod by mroużon. Ver. 1.0.6a
+-- Show Remaining Dodges mod by mroużon. Ver. 1.0.6b
 -- Thanks to Zombine, Redbeardt and others for their input into the community. Their work helped me a lot in the process of creating this mod.
 
 -- Russian translation created with the help of xsSplater
+-- Chinese localization by deluxghost
 
 return {
 	mod_name = {
