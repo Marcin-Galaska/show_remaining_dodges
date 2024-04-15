@@ -1,4 +1,4 @@
--- Show Remaining Dodges mod by mroużon. Ver. 1.0.6b
+-- Show Remaining Dodges mod by mroużon. Ver. 1.0.7
 -- Thanks to Zombine, Redbeardt and others for their input into the community. Their work helped me a lot in the process of creating this mod.
 
 -- Russian translation created with the help of xsSplater
@@ -34,6 +34,18 @@ return {
 		ru = "Как быстро будет появляться и исчезать индикатор.",
 		pl = "Jak szybko wskaźnik będzie się pojawiał i znikał.",
 		["zh-cn"] = "组件以多快的速度淡入淡出",
+	},
+	remaining_dodges_show_negative_dodges = {
+		en = "Show Negative Dodges",
+		ru = "Показать Отрицательные Увороты",
+		pl = "Pokazuj Ujemne Uniki",
+		["zh-cn"] = "显示负闪避",
+	},
+	remaining_dodges_show_negative_dodges_desc = {
+		en = "Whether the widget should be able to count below zero.",
+		ru = "Должен ли индикатор уметь считать ниже нуля.",
+		pl = "Czy wskaźnik powinien móc liczyć poniżej zera.",
+		["zh-cn"] = "组件是否应该能够计数到零以下",
 	},
 	remaining_dodges_widget_bar_settings_appearance = {
 		en = "Widget Bars Style",

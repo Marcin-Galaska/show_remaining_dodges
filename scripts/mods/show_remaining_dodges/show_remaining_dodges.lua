@@ -1,4 +1,4 @@
--- Show Remaining Dodges mod by mroużon. Ver. 1.0.6b
+-- Show Remaining Dodges mod by mroużon. Ver. 1.0.7
 -- Thanks to Zombine, Redbeardt and others for their input into the community. Their work helped me a lot in the process of creating this mod.
 
 local mod = get_mod("show_remaining_dodges")
@@ -18,6 +18,7 @@ mod._last_dodge_enter_t = 0.0                                   -- In-game time 
 mod._unit = nil                                                 -- Player unit
 
 mod._remaining_dodges_widget_fade_inout_speed = mod:get("remaining_dodges_widget_fade_inout_speed")
+mod._remaining_dodges_show_negative_dodges = mod:get("remaining_dodges_show_negative_dodges")
 mod._remaining_dodges_widget_horizontal_offset = mod:get("remaining_dodges_widget_horizontal_offset")
 mod._remaining_dodges_widget_vertical_offset = -1 * mod:get("remaining_dodges_widget_vertical_offset")
 mod._remaining_dodges_widget_bar_appearance = {
@@ -162,6 +163,8 @@ mod.on_setting_changed = function(id)
         end
     elseif id == "remaining_dodges_widget_fade_inout_speed" then
         mod._remaining_dodges_widget_fade_inout_speed = mod:get("remaining_dodges_widget_fade_inout_speed")
+    elseif id == "remaining_dodges_show_negative_dodges" then
+        mod._remaining_dodges_show_negative_dodges = mod:get("remaining_dodges_show_negative_dodges")
     end
 end
 

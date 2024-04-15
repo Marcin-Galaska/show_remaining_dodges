@@ -1,4 +1,4 @@
--- Show Remaining Dodges mod by mroużon. Ver. 1.0.6b
+-- Show Remaining Dodges mod by mroużon. Ver. 1.0.7
 -- Thanks to Zombine, Redbeardt and others for their input into the community. Their work helped me a lot in the process of creating this mod.
 
 local mod = get_mod("show_remaining_dodges")
@@ -10,8 +10,6 @@ local UIWidget = mod:original_require("scripts/managers/ui/ui_widget")
 local UIHudSettings = mod:original_require("scripts/settings/ui/ui_hud_settings")
 
 local HudElementDodging = class("HudElementDodging", "HudElementBase")
-
-local temp = false
 
 HudElementDodging.on_resolution_modified = function (self)
 	HudElementDodging.super.on_resolution_modified(self)
@@ -124,7 +122,9 @@ HudElementDodging._draw_dodges = function (self, dt, t, ui_renderer)
 
 	local gauge_widget = self._widgets_by_name.gauge
 	local dodges_left = 0
-	if mod._effective_dodges_left > dodges_left then
+	if mod._remaining_dodges_show_negative_dodges then
+		dodges_left = mod._effective_dodges_left
+	elseif mod._effective_dodges_left > dodges_left then
 		dodges_left = mod._effective_dodges_left
 	end
 	gauge_widget.content.value_text = string.format("%d", dodges_left)

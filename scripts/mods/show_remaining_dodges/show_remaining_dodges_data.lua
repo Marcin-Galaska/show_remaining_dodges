@@ -1,4 +1,4 @@
--- Show Remaining Dodges mod by mroużon. Ver. 1.0.6b
+-- Show Remaining Dodges mod by mroużon. Ver. 1.0.7
 -- Thanks to Zombine, Redbeardt and others for their input into the community. Their work helped me a lot in the process of creating this mod.
 
 local mod = get_mod("show_remaining_dodges")
@@ -19,6 +19,12 @@ return {
 						type = "numeric",
 						default_value = 3,
 						range = {1, 10}
+					},
+					{
+						setting_id = "remaining_dodges_show_negative_dodges",
+						tooltip = "remaining_dodges_show_negative_dodges_desc",
+						type = "checkbox",
+						default_value = false,
 					}
 				}
 			},
