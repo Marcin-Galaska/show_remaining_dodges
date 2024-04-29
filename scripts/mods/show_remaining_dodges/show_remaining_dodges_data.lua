@@ -1,4 +1,4 @@
--- Show Remaining Dodges mod by mroużon. Ver. 1.0.7
+-- Show Remaining Dodges mod by mroużon. Ver. 1.0.8
 -- Thanks to Zombine, Redbeardt and others for their input into the community. Their work helped me a lot in the process of creating this mod.
 
 local mod = get_mod("show_remaining_dodges")
@@ -91,14 +91,14 @@ return {
 						tooltip = "remaining_dodges_widget_vertical_offset_desc",
 						type = "numeric",
 						default_value = 0,
-						range = {-250, 750}
+						range = {-800, 1300}
 					},
 					{
 						setting_id = "remaining_dodges_widget_horizontal_offset",
 						tooltip = "remaining_dodges_widget_horizontal_offset_desc",
 						type = "numeric",
 						default_value = 0,
-						range = {-850, 850}
+						range = {-1800, 1800}
 					}
 				}
 			}
