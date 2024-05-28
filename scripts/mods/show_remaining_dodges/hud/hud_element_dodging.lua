@@ -133,6 +133,11 @@ HudElementDodging._draw_dodges = function (self, dt, t, ui_renderer)
 	local x_offset = (dodge_width + spacing) * (num_dodges - 1) * 0.5
 	local dodges = self._dodges
 
+	local view_dodges_left = dodges_left
+	if dodges_left < 0 then
+		view_dodges_left = dodges_left * (-1)
+	end
+	
 	for i = num_dodges, 1, -1 do
 		local dodge = dodges[i]
 
@@ -142,7 +147,7 @@ HudElementDodging._draw_dodges = function (self, dt, t, ui_renderer)
 
 		local is_full, is_empty = nil, nil
 
-		if i <= mod._effective_dodges_left then
+		if i <= view_dodges_left then
 			is_full = true
 		else
 			is_empty = true
@@ -153,7 +158,11 @@ HudElementDodging._draw_dodges = function (self, dt, t, ui_renderer)
 		if is_empty then
 			active_color = color_empty
 		elseif is_full then
-			active_color = mod._remaining_dodges_widget_bar_appearance
+			if mod._effective_dodges_left >= 0 then
+				active_color = mod._remaining_dodges_widget_bar_appearance
+			else
+				active_color = mod._negative_dodges_widget_bar_appearance
+			end
 		end
 
 		local widget_style = widget.style
