@@ -90,8 +90,6 @@ return {
 		pl = "Intensywność koloru niebieskiego.",
 		["zh-cn"] = "蓝色强度。",
 	},
-<<<<<<< Updated upstream
-=======
 	remaining_dodges_widget_bar_negative_dodges_settings_appearance = {
 		en = "Widget Negative Bars Style",
 		ru = "Стиль Негативных Баров Индикатора",
@@ -134,7 +132,6 @@ return {
 		pl = "Intensywność koloru niebieskiego.",
 		["zh-cn"] = "蓝色强度。",
 	},
->>>>>>> Stashed changes
 	remaining_dodges_widget_text_settings_appearance = {
 		en = "Widget Text Style",
 		ru = "Стиль Текста Индикатора",

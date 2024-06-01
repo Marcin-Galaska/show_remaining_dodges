@@ -25,7 +25,7 @@ return {
 						setting_id = "remaining_dodges_show_negative_dodges",
 						tooltip = "remaining_dodges_show_negative_dodges_desc",
 						type = "checkbox",
-						default_value = false,
+						default_value = true,
 					}
 				}
 			},
@@ -57,8 +57,6 @@ return {
 				}
 			},
 			{
-<<<<<<< Updated upstream
-=======
 				setting_id  = "remaining_dodges_widget_bar_negative_dodges_settings_appearance",
 				type        = "group",
 				sub_widgets = {
@@ -86,7 +84,6 @@ return {
 				}
 			},
 			{
->>>>>>> Stashed changes
 				setting_id  = "remaining_dodges_widget_text_settings_appearance",
 				type        = "group",
 				sub_widgets = {

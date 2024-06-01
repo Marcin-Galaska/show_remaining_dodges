@@ -162,7 +162,7 @@ HudElementDodging._draw_dodges = function (self, dt, t, ui_renderer)
 			if mod._effective_dodges_left >= 0 then
 				active_color = mod._remaining_dodges_widget_bar_appearance
 			else
-				active_color = mod._negative_dodges_widget_bar_appearance
+				active_color = mod._remaining_dodges_widget_bar_negative_dodges_appearance
 			end
 		end
 

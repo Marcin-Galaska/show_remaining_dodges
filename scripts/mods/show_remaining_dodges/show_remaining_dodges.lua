@@ -28,11 +28,11 @@ mod._remaining_dodges_widget_bar_appearance = {
     mod:get("remaining_dodges_widget_bar_G"),
     mod:get("remaining_dodges_widget_bar_B")
 }
-mod._negative_dodges_widget_bar_appearance = {
+mod._remaining_dodges_widget_bar_negative_dodges_appearance = {
     255,
-    mod:get("negative_dodges_widget_bar_R"),
-    mod:get("negative_dodges_widget_bar_G"),
-    mod:get("negative_dodges_widget_bar_B")
+    mod:get("remaining_dodges_widget_bar_negative_dodges_R"),
+    mod:get("remaining_dodges_widget_bar_negative_dodges_G"),
+    mod:get("remaining_dodges_widget_bar_negative_dodges_B")
 }
 mod._remaining_dodges_widget_text_appearance = {
     255,
@@ -131,6 +131,27 @@ mod.on_setting_changed = function(id)
             255,
             mod:get("remaining_dodges_widget_bar_R"),
             mod:get("remaining_dodges_widget_bar_G"),
+            mod:get(id)
+        }
+    elseif id == "remaining_dodges_widget_bar_negative_dodges_R" then
+        mod._remaining_dodges_widget_bar_appearance = {
+            255,
+            mod:get(id),
+            mod:get("remaining_dodges_widget_bar_negative_dodges_G"),
+            mod:get("remaining_dodges_widget_bar_negative_dodges_B")
+        }
+    elseif id == "remaining_dodges_widget_bar_negative_dodges_G" then
+        mod._remaining_dodges_widget_bar_appearance = {
+            255,
+            mod:get("remaining_dodges_widget_bar_negative_dodges_R"),
+            mod:get(id),
+            mod:get("remaining_dodges_widget_bar_negative_dodges_B")
+        }
+    elseif id == "remaining_dodges_widget_bar_negative_dodges_B" then
+        mod._remaining_dodges_widget_bar_appearance = {
+            255,
+            mod:get("remaining_dodges_widget_bar_negative_dodges_R"),
+            mod:get("remaining_dodges_widget_bar_negative_dodges_G"),
             mod:get(id)
         }
     elseif id == "remaining_dodges_widget_text_R" then
