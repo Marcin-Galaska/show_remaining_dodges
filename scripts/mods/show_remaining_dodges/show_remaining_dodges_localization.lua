@@ -1,4 +1,5 @@
--- Show Remaining Dodges mod by mroużon. Ver. 1.0.8
+-- Show Remaining Dodges mod by mroużon. Ver. 1.0.9
+-- Contributors: FELITH, xsSplater, deluxghost
 -- Thanks to Zombine, Redbeardt and others for their input into the community. Their work helped me a lot in the process of creating this mod.
 
 -- Russian translation created with the help of xsSplater
@@ -89,6 +90,51 @@ return {
 		pl = "Intensywność koloru niebieskiego.",
 		["zh-cn"] = "蓝色强度。",
 	},
+<<<<<<< Updated upstream
+=======
+	remaining_dodges_widget_bar_negative_dodges_settings_appearance = {
+		en = "Widget Negative Bars Style",
+		ru = "Стиль Негативных Баров Индикатора",
+		pl = "Styl Negatywnych Pasków Wskaźnika",
+		["zh-cn"] = "组件负面指示条样式",
+	},
+	remaining_dodges_widget_bar_negative_dodges_R = {
+		en = "Red",
+		ru = "Красный",
+		pl = "Czerwony",
+		["zh-cn"] = "红色",
+	},
+	remaining_dodges_widget_bar_negative_dodges_R_desc = {
+		en = "Intensity of the color red.",
+		ru = "Интенсивность Красного цвета",
+		pl = "Intensywność koloru czerwonego.",
+		["zh-cn"] = "红色强度。",
+	},
+	remaining_dodges_widget_bar_negative_dodges_G = {
+		en = "Green",
+		ru = "Зелёный",
+		pl = "Zielony",
+		["zh-cn"] = "绿色",
+	},
+	remaining_dodges_widget_bar_negative_dodges_G_desc = {
+		en = "Intensity of the color green.",
+		ru = "Интенсивность Зелёного цвета",
+		pl = "Intensywność koloru zielonego.",
+		["zh-cn"] = "绿色强度。",
+	},
+	remaining_dodges_widget_bar_negative_dodges_B = {
+		en = "Blue",
+		ru = "Синий",
+		pl = "Niebieski",
+		["zh-cn"] = "蓝色",
+	},
+	remaining_dodges_widget_bar_negative_dodges_B_desc = {
+		en = "Intensity of the color blue.",
+		ru = "Интенсивность Синего цвета",
+		pl = "Intensywność koloru niebieskiego.",
+		["zh-cn"] = "蓝色强度。",
+	},
+>>>>>>> Stashed changes
 	remaining_dodges_widget_text_settings_appearance = {
 		en = "Widget Text Style",
 		ru = "Стиль Текста Индикатора",

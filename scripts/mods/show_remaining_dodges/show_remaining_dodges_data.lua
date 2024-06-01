@@ -1,4 +1,5 @@
--- Show Remaining Dodges mod by mroużon. Ver. 1.0.8
+-- Show Remaining Dodges mod by mroużon. Ver. 1.0.9
+-- Contributors: FELITH, xsSplater, deluxghost
 -- Thanks to Zombine, Redbeardt and others for their input into the community. Their work helped me a lot in the process of creating this mod.
 
 local mod = get_mod("show_remaining_dodges")
@@ -56,6 +57,36 @@ return {
 				}
 			},
 			{
+<<<<<<< Updated upstream
+=======
+				setting_id  = "remaining_dodges_widget_bar_negative_dodges_settings_appearance",
+				type        = "group",
+				sub_widgets = {
+					{
+						setting_id = "remaining_dodges_widget_bar_negative_dodges_R",
+						tooltip = "remaining_dodges_widget_bar_negative_dodges_R_desc",
+						type = "numeric",
+						default_value = 255,
+						range = {0, 255}
+					},
+					{
+						setting_id = "remaining_dodges_widget_bar_negative_dodges_G",
+						tooltip = "remaining_dodges_widget_bar_negative_dodges_G_desc",
+						type = "numeric",
+						default_value = 80,
+						range = {0, 255}
+					},
+					{
+						setting_id = "remaining_dodges_widget_bar_negative_dodges_B",
+						tooltip = "remaining_dodges_widget_bar_negative_dodges_B_desc",
+						type = "numeric",
+						default_value = 80,
+						range = {0, 255}
+					}
+				}
+			},
+			{
+>>>>>>> Stashed changes
 				setting_id  = "remaining_dodges_widget_text_settings_appearance",
 				type        = "group",
 				sub_widgets = {

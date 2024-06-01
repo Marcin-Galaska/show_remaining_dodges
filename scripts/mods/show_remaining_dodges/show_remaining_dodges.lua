@@ -1,4 +1,5 @@
--- Show Remaining Dodges mod by mroużon. Ver. 1.0.8
+-- Show Remaining Dodges mod by mroużon. Ver. 1.0.9
+-- Contributors: FELITH, xsSplater, deluxghost
 -- Thanks to Zombine, Redbeardt and others for their input into the community. Their work helped me a lot in the process of creating this mod.
 
 local mod = get_mod("show_remaining_dodges")
