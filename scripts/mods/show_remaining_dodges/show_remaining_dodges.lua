@@ -27,6 +27,12 @@ mod._remaining_dodges_widget_bar_appearance = {
     mod:get("remaining_dodges_widget_bar_G"),
     mod:get("remaining_dodges_widget_bar_B")
 }
+mod._negative_dodges_widget_bar_appearance = {
+    255,
+    mod:get("negative_dodges_widget_bar_R"),
+    mod:get("negative_dodges_widget_bar_G"),
+    mod:get("negative_dodges_widget_bar_B")
+}
 mod._remaining_dodges_widget_text_appearance = {
     255,
     mod:get("remaining_dodges_widget_text_R"),

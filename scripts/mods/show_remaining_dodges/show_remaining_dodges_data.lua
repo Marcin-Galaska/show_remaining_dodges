@@ -56,6 +56,33 @@ return {
 				}
 			},
 			{
+				setting_id  = "negative_dodges_widget_bar_settings_appearance",
+				type        = "group",
+				sub_widgets = {
+					{
+						setting_id = "negative_dodges_widget_bar_R",
+						tooltip = "negative_dodges_widget_bar_R_desc",
+						type = "numeric",
+						default_value = 255,
+						range = {0, 255}
+					},
+					{
+						setting_id = "negative_dodges_widget_bar_G",
+						tooltip = "negative_dodges_widget_bar_G_desc",
+						type = "numeric",
+						default_value = 80,
+						range = {0, 255}
+					},
+					{
+						setting_id = "negative_dodges_widget_bar_B",
+						tooltip = "negative_dodges_widget_bar_B_desc",
+						type = "numeric",
+						default_value = 80,
+						range = {0, 255}
+					}
+				}
+			},
+			{
 				setting_id  = "remaining_dodges_widget_text_settings_appearance",
 				type        = "group",
 				sub_widgets = {

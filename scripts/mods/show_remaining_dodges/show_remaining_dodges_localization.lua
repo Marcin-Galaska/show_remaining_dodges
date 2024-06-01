@@ -89,6 +89,48 @@ return {
 		pl = "Intensywność koloru niebieskiego.",
 		["zh-cn"] = "蓝色强度。",
 	},
+	negative_dodges_widget_bar_settings_appearance = {
+		en = "Widget Negative Bars Style",
+		ru = "Стиль Негативных Баров Индикатора",
+		pl = "Styl Negatywnych Pasków Wskaźnika",
+		["zh-cn"] = "组件负面指示条样式",
+	},
+	negative_dodges_widget_bar_R = {
+		en = "Red",
+		ru = "Красный",
+		pl = "Czerwony",
+		["zh-cn"] = "红色",
+	},
+	negative_dodges_widget_bar_R_desc = {
+		en = "Intensity of the color red.",
+		ru = "Интенсивность Красного цвета",
+		pl = "Intensywność koloru czerwonego.",
+		["zh-cn"] = "红色强度。",
+	},
+	negative_dodges_widget_bar_G = {
+		en = "Green",
+		ru = "Зелёный",
+		pl = "Zielony",
+		["zh-cn"] = "绿色",
+	},
+	negative_dodges_widget_bar_G_desc = {
+		en = "Intensity of the color green.",
+		ru = "Интенсивность Зелёного цвета",
+		pl = "Intensywność koloru zielonego.",
+		["zh-cn"] = "绿色强度。",
+	},
+	negative_dodges_widget_bar_B = {
+		en = "Blue",
+		ru = "Синий",
+		pl = "Niebieski",
+		["zh-cn"] = "蓝色",
+	},
+	negative_dodges_widget_bar_B_desc = {
+		en = "Intensity of the color blue.",
+		ru = "Интенсивность Синего цвета",
+		pl = "Intensywność koloru niebieskiego.",
+		["zh-cn"] = "蓝色强度。",
+	},
 	remaining_dodges_widget_text_settings_appearance = {
 		en = "Widget Text Style",
 		ru = "Стиль Текста Индикатора",
