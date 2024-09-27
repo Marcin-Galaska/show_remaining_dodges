@@ -1,4 +1,4 @@
--- Show Remaining Dodges mod by mroużon. Ver. 1.0.9
+-- Show Remaining Dodges mod by mroużon. Ver. 1.0.10
 -- Contributors: FELITH, xsSplater, deluxghost
 -- Thanks to Zombine, Redbeardt and others for their input into the community. Their work helped me a lot in the process of creating this mod.
 
@@ -134,21 +134,21 @@ mod.on_setting_changed = function(id)
             mod:get(id)
         }
     elseif id == "remaining_dodges_widget_bar_negative_dodges_R" then
-        mod._remaining_dodges_widget_bar_appearance = {
+        mod._remaining_dodges_widget_bar_negative_dodges_appearance = {
             255,
             mod:get(id),
             mod:get("remaining_dodges_widget_bar_negative_dodges_G"),
             mod:get("remaining_dodges_widget_bar_negative_dodges_B")
         }
     elseif id == "remaining_dodges_widget_bar_negative_dodges_G" then
-        mod._remaining_dodges_widget_bar_appearance = {
+        mod._remaining_dodges_widget_bar_negative_dodges_appearance = {
             255,
             mod:get("remaining_dodges_widget_bar_negative_dodges_R"),
             mod:get(id),
             mod:get("remaining_dodges_widget_bar_negative_dodges_B")
         }
     elseif id == "remaining_dodges_widget_bar_negative_dodges_B" then
-        mod._remaining_dodges_widget_bar_appearance = {
+        mod._remaining_dodges_widget_bar_negative_dodges_appearance = {
             255,
             mod:get("remaining_dodges_widget_bar_negative_dodges_R"),
             mod:get("remaining_dodges_widget_bar_negative_dodges_G"),
@@ -243,6 +243,14 @@ local _on_exit = function(self)
     mod._consecutive_dodges_cooldown = mod._unified_t + cooldown
 end
 
+local _reset_dodges_trait_proc_func = function(params, template_data, template_context)
+    local dodge_write_component = template_data.dodge_write_component
+
+    dodge_write_component.consecutive_dodges = 0
+
+    mod._effective_dodges_left = mod._effective_dodges
+end
+
 -- ##################################################
 -- Hooks
 -- ##################################################
@@ -329,6 +337,12 @@ mod:hook(CLASS.UIHud, "init", function(func, self, elements, visibility_groups, 
 	end
 
 	return func(self, elements, visibility_groups, params, ...)
+end)
+
+-- Add support for the 'Agile' trait
+mod:hook_require("scripts/settings/buff/buff_templates", function(templates)
+    templates.weapon_trait_bespoke_combatsword_p3_weakspot_hit_resets_dodge_count.proc_func = _reset_dodges_trait_proc_func
+    templates.weapon_trait_bespoke_combataxe_p2_weakspot_hit_resets_dodge_count.proc_func = _reset_dodges_trait_proc_func
 end)
 
 -- Reset on game session end
